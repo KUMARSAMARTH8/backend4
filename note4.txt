@@ -1,0 +1,7 @@
+nodemon is dev dependency in which jaise hi file save ho , server will restart
+ npm i -D nodemon
+
+ in json to run nodemon
+ "scripts": {
+    "dev": "nodemon src/index.js"
+  },
