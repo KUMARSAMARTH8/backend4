@@ -5,3 +5,9 @@ nodemon is dev dependency in which jaise hi file save ho , server will restart
  "scripts": {
     "dev": "nodemon src/index.js"
   },
+
+  //db connection can be done by two ways:
+  # coding through index file
+  #make db file and export it(clean professional)
+
+when you try to communicate with db problems can arise so try to wrap in try catch or with promises also keep track on async ,await
