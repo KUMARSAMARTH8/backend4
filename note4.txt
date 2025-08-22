@@ -11,3 +11,94 @@ nodemon is dev dependency in which jaise hi file save ho , server will restart
   #make db file and export it(clean professional)
 
 when you try to communicate with db problems can arise so try to wrap in try catch or with promises also keep track on async ,await
+
+app.use is used mostly whwn configure middleware,
+multer is used for file uploading config
+process to check whether you are capable to accept the request , the structure to check is middleware (multiple checks for requests)
+
+whwn overwrite a constructor super keyword is used
+For videos or high data file we are using 3rd part file and taking url
+
+true power of mongoose from aggregate paginate, which we are using to record watch history by importing mongooseAggregatePaginate
+
+bcrypt is library to help you hash passwords
+
+jsonwebtoken in npm is cryptography based token and it has headers, payloads(data you send get injected into it)
+secret make each token unique and protects it
+direct encryption through bcrypt, jwt is not possible so mongoose hooks are used,
+here pre hooks are used which are middleware func executed one after another when each middleware calls next to encrypt passwords
+
+generating random token in env
+ACCESS_TOKEN_SECRET = OuTgDgTjXtHjC0
+ACCESS_TOKEN_EXPIRY = 1d
+REFRESH_TOKEN_SECRET = KDUA7AJSD3Bfg
+
+accees token donot store in db but refresh token is stored in db
+
+filehandling is done in backend through 3rd party services or (aws)
+through user we are uploading file through multer
+we are using cloudinary which is service which takes file from user and upload at it's server, through multer we will take that file and store it at local storage, then through cloudinary we will take that from local storage and store at server
+
+we can take flie through multer, give it to cloudinary and get it uploaded but at production temporarily we take file from user and get it into local storage, since it comes at our server can reattemp or reupload chance be open(2 step setting)
+
+//fs is file system in nodejs which helps in read, write, remove in syncor async , when we manage file system then we use fs,we mainl need file system path
+link in fs = add
+unlink in fs= delete
+
+//you need to restart (save it) server after editing .env 
+//through multer you can access file that's why we use multer otherwise we can access only req
+//postman is a widely used API development and testing tool. It provides a user-friendly interface to interact with and test Application Programming Interfaces (APIs) built on the backend.
+
+In postman collections, have post http://localhost:8000/api/v1/users/register and it will give response to message sent user controller
+
+In postman , post have body  in raw data with json we can send req of body which is console.log("email:", email)
+
+//until this time we saw we have data in req.body but we have added a middleware in routes, so middleware also give access(middleware only adds some fields on request), so we have req.files
+//multer gives req.files access ,optionally chain if we have file then have file avatar[0] (avatar first property) or we will get path uploaded by multer
+multer have file destination , filename and it will give file original name(taken as path)
+
+//in postman , in collection,in post form data we can take keys from user controller 
+(fullname, avatar,coverImage,..)
+
+//access token is short lived and refresh token is long lived
+through access token you can access any feature that needs authentication (login expire in 15 min so you have restart it )
+whereas refresh token saved both on db and user , (user validate through accees token but don't need to put password , hit end point through refreshtoken to avoid input password each time, when user and db refresh token is same then it will work)
+
+//conreoller that makes user channel profile (subscribers, subscribed) and follow button
+
+Subscription scehema
+ ___________   __________ 
+|subscribers|  | channel|
+
+ch->CAC    ch->CAC   ch->dhruvra
+Subs->a    Subs->b   subs->b
+
+*To count no of subscribers of a channel we have to match channel where we have channel CAC
+*To count no of channels you have subscribed , then we have match where subs value is b (2)
+
+//aggregation pipelines in mongo db consists of one or more stages that process documents:
+.each stage performs an oprn on i/p documents (ex: you set filtering for 100 docs and can take 50 docs only then for next stage you can have i/p 50 docs only for that application)
+
+In mongodb in database of proj there is data services which has aggregation block you can edit by text(writing aggregation pipeline):
+[{
+  $lookup: {
+    from: "authors",
+    localField: "author_id", (mera doc id)
+    foreignField: "_id", (dusra doc id)
+    as: "author_details"
+  }
+},
+{
+  $addFields : { //adds new field
+    author_details : {
+      $arrayElemAt: ["$author_details", 0]
+    }      //get from field author_details and get value 0
+  }
+}
+]
+//lokkup is used to join  in pipeline from here authors 
+//if you dont want to store value in array, then store lookup value in variable and return lookup authordetails into it
+
+//can read about $project in mongodb
+
+//aggregate returns the sorted document

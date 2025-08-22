@@ -6,8 +6,9 @@ dotenv.config({
   path: "./.env",
 });
 
-connectDB()
+connectDB() //when db gets connected with async method it also returns a promise so use .then and .catch to handle error
   .then(() => {
+    //after db gets connected listen to it connect enc port or default port 8000
     app.listen(process.env.PORT || 8000, () => {
       console.log(`⚙️ Server is running at port : ${process.env.PORT}`);
     });
